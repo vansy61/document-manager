@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="/layout :: head">
+    <title>List Product</title>
+</head>
+
+
+<body class="bg-body-tertiary">
+<nav th:replace="/layout :: menu "></nav>
+<nav th:replace="/layout :: notify "></nav>
+
+
+<div class="container">
+    <div class="my-3 shadow-sm bg-white p-3 d-flex align-items-center justify-content-between">
+        <h3 class="mb-0">Chỉnh sửa blog <span th:text="${blog.title}"></span></h3>
+    </div>
+    <div class="p-3 shadow-sm bg-white mt-3">
+        <form th:action="@{/blogs/{id}/update(id=${blog.id})}" th:method="post" th:object="${blog}" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label class="form-label">Tiêu đề</label>
+                        <input type="text" class="form-control" th:field="*{title}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tác giả</label>
+                        <input type="text" class="form-control" th:field="*{author}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Avatar</label>
+                        <input type="file" class="form-control input-image" th:field="*{avatar}" accept="image/*">
+                        <div class="preview-image mt-2">
+                            <img th:if="${blog.avatar != null}" th:src="@{'/image/' + ${blog.avatar}}" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label class="form-label">Tóm tắt</label>
+                        <textarea class="form-control" th:field="*{summary}" rows="4"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nội dung</label>
+                        <textarea class="form-control" th:field="*{content}" rows="8"></textarea>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="text-center">
+                        <a th:href="@{/blogs/list}" class="btn btn-outline-secondary">Hủy</a>
+                        <button class="btn btn-primary px-5">Cập nhật</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
