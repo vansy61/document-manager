@@ -1,5 +1,6 @@
 package com.example.document_manage.controller;
 
+import com.example.document_manage.model.DTO.ITypeWithCountDocument;
 import com.example.document_manage.model.Document;
 import com.example.document_manage.model.Type;
 import com.example.document_manage.service.type.TypeService;
@@ -22,7 +23,7 @@ public class TypeController {
     @RequestMapping("")
     public String index(Model model) {
 
-        Iterable<Type> types = typeService.findAll();
+        Iterable<ITypeWithCountDocument> types = typeService.findAllWithCountDocument();
         model.addAttribute("types", types);
         return "type/index";
     }

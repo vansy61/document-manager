@@ -1,5 +1,6 @@
 package com.example.document_manage.service.type;
 
+import com.example.document_manage.model.DTO.ITypeWithCountDocument;
 import com.example.document_manage.model.Type;
 import com.example.document_manage.repository.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,11 @@ public class TypeService implements ITypeService {
     @Override
     public Iterable<Type> findAll() {
         return typeRepository.findAll();
+    }
+
+    @Override
+    public Iterable<ITypeWithCountDocument> findAllWithCountDocument() {
+        return typeRepository.findAllWithCountDocument();
     }
 
     @Override

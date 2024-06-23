@@ -21,6 +21,7 @@
                     <tr>
                         <th>#</th>
                         <th>Tên</th>
+                        <th>Số lượng tài liệu</th>
                         <th>Sửa</th>
                         <th>Xóa</th>
                     </tr>
@@ -29,6 +30,7 @@
                     <tr th:each="item,status : ${types}">
                         <td th:text="${status.count}"></td>
                         <td th:text="${item.name}"></td>
+                        <td th:text="${item.count}"></td>
                         <td><a th:href="@{/types/{id}/edit(id=${item.id})}" class="btn btn-sm btn-info">Sửa</a></td>
                         <td><a th:href="@{/types/{id}/delete(id=${item.id})}" class="btn btn-sm btn-danger btn-destroy">Xóa</a></td>
                     </tr>
