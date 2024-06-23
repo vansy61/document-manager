@@ -14,4 +14,19 @@ public class TypeService implements ITypeService {
     public Iterable<Type> findAll() {
         return typeRepository.findAll();
     }
+
+    @Override
+    public void save(Type type) {
+        typeRepository.save(type);
+    }
+
+    @Override
+    public Type findById(Long id) {
+        return typeRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void delete(Long id) {
+        typeRepository.deleteById(id);
+    }
 }
