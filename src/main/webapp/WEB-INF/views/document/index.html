@@ -52,7 +52,6 @@
                         <th>Phân loại</th>
                         <th>Sửa</th>
                         <th>Xóa</th>
-                        <th>Xem</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,6 +61,8 @@
                         <td th:text="${item.year}"></td>
                         <td th:text="${item.description}"></td>
                         <td th:text="${item.type.getName()}"></td>
+                        <td><a th:href="@{/documents/{id}/edit(id=${item.id})}" class="btn btn-sm btn-info">Sửa</a></td>
+                        <td><a th:href="@{/documents/{id}/delete(id=${item.id})}" class="btn btn-sm btn-danger btn-destroy">Xóa</a></td>
                     </tr>
                 </tbody>
             </table>

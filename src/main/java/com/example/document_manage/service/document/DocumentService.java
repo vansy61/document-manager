@@ -40,4 +40,19 @@ public class DocumentService implements IDocumentService {
             return documentRepository.findAll(pageable);
         }
     }
+
+    @Override
+    public void save(Document document) {
+        documentRepository.save(document);
+    }
+
+    @Override
+    public Document findById(Long id) {
+        return documentRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void delete(Long id) {
+        documentRepository.deleteById(id);
+    }
 }

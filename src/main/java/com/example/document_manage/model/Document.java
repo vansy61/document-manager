@@ -1,6 +1,7 @@
 package com.example.document_manage.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.sql.Date;
 
 @Entity
@@ -8,10 +9,24 @@ public class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank(message = "Mã không được để trống")
+    @Size(max = 10, min = 3, message = "Mã phải từ 3 đến 10 ký tự")
     private String code;
+
+    @NotBlank(message = "Tên không được để trống")
+    @Size(max = 255, message = "Tên không được quá 255 ký tự")
     private String name;
+
+    @NotNull(message = "Năm không được để trống")
+    @Min(value = 1900, message = "Năm phải >= 1900")
+    @Max(value = 2024, message = "Năm phải <= 2025")
     private Integer year;
+
+    @NotBlank(message = "Mô tả không được để trống")
+    @Size(max = 255, message = "Mô tả không được quá 255 ký tự")
     private String description;
+
     @OneToOne
     @JoinColumn(name = "typeId")
     private Type type;

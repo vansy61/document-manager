@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +54,58 @@ public class DocumentController {
 
     }
 
+    @RequestMapping("/create")
+    public String create(Model model) {
+        model.addAttribute("document", new Document());
+        return "document/create";
+    }
+
+    @PostMapping("/create")
+    public String create(
+            @Validated @ModelAttribute Document document,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes,
+            Model model
+    ) {
+        if (bindingResult.hasFieldErrors()) {
+            model.addAttribute("document", document);
+            return "document/create";
+        }
+        documentService.save(document);
+        redirectAttributes.addFlashAttribute("success", "Thêm mới thành công");
+        return "redirect:/documents";
+    }
+
+    @RequestMapping("/{id}/edit")
+    public String edit(@PathVariable Long id, Model model) {
+        Document document = documentService.findById(id);
+        model.addAttribute("document", document);
+        return "document/edit";
+    }
+
+    @PostMapping("/{id}/update")
+    public String update(
+            @Validated @ModelAttribute Document document,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes,
+            Model model
+    ) {
+        if (bindingResult.hasFieldErrors()) {
+            model.addAttribute("document", document);
+            return "document/edit";
+        }
+        documentService.save(document);
+        redirectAttributes.addFlashAttribute("success", "Cập nhật thành công");
+        return "redirect:/documents";
+
+    }
+
+    @RequestMapping("/{id}/delete")
+    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        documentService.delete(id);
+        redirectAttributes.addFlashAttribute("success", "Xóa thành công");
+        return "redirect:/documents";
+    }
 
     private Map<String, String> getSortOptions() {
         Map<String, String> sortOptions = new LinkedHashMap<>();

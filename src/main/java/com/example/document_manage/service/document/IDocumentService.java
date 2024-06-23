@@ -7,4 +7,7 @@ import java.util.Map;
 
 public interface IDocumentService {
     Page<Document> findAll(int page, int size, String sort, String search, Long typeId);
+    void save(Document document);
+    Document findById(Long id);
+    void delete(Long id);
 }
